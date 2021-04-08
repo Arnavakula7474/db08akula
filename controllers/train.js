@@ -1,7 +1,16 @@
 var train = require('../models/train');
 // List of all trains
-exports.train_list = function(req, res) {
- res.send('NOT IMPLEMENTED: train list');
+//exports.train_list = function(req, res) {
+ //res.send('NOT IMPLEMENTED: train list');
+//};
+exports.train_list = async function(req, res) {
+    try{
+        thetrains = await train.find();
+        res.send(thetrains);
+        }
+        catch(err){
+        res.error(500,`{"error": ${err}}`);
+        }
 };
 // for a specific train.
 exports.train_detail = function(req, res) {

@@ -28,3 +28,15 @@ exports.train_delete = function(req, res) {
 exports.train_update_put = function(req, res) {
  res.send('NOT IMPLEMENTED: train update PUT' + req.params.id);
 };
+
+// VIEWS
+// Handle a show all view
+exports.train_view_all_Page = async function(req, res) {
+    try{
+    thetrains = await train.find();
+    res.render('train', { title: 'train Search Results', results: thetrains });
+    }
+    catch(err){
+    res.error(500,`{"error": ${err}}`);
+    }
+    };

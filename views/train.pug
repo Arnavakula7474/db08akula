@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1= title
+  div(class="container-fluid")
+        div(class="row")
+            -
+                let trains = [
+                    {
+                        "type": "Passenger",
+                        "destination": "Missouri",
+                        "compartments": "20"                        
+                    },
+                    {
+                        "type": "Commericial",
+                        "destination": "Texas",
+                        "compartments": "200" 
+                    },
+                    {
+                        "type": "Goods",
+                        "destination": "Omaha",
+                        "compartments": "300" 
+                    },                   
+                ]
+            each train in trains 
+                div(class="col-sm-2") #{train.type}
+                div(class="col-sm-2") #{train.destination}
+                div(class="col-sm-2") #{train.compartments}

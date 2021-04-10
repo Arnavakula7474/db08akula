@@ -12,13 +12,25 @@ exports.train_list = async function(req, res) {
         res.error(500,`{"error": ${err}}`);
         }
 };
-// for a specific train.
-exports.train_detail = function(req, res) {
- res.send('NOT IMPLEMENTED: train detail: ' + req.params.id);
-};
+
 // Handle train create on POST.
-exports.train_create_post = function(req, res) {
- res.send('NOT IMPLEMENTED: train create POST');
+exports.train_create_post = async function(req, res) {
+    console.log(req.body)
+    let document = new train();
+    // We are looking for a body, since POST does not have query parameters.
+    // Even though bodies can be in many different formats, we will be picky
+    // and require that it be a json object
+    // {"costumetype":"goat", "cost":12, "size":"large"}
+    document.type = req.body.type;
+    document.compartments = req.body.compartments;
+    document.destination = req.body.destination;
+    try{
+    let result = await document.save();
+    res.send(result);
+    }
+    catch(err){
+    res.error(500,`{"error": ${err}}`);
+   };
 };
 // Handle train delete form on DELETE.
 exports.train_delete = function(req, res) {
@@ -39,4 +51,15 @@ exports.train_view_all_Page = async function(req, res) {
     catch(err){
     res.error(500,`{"error": ${err}}`);
     }
+    };
+
+    exports.train_detail = async function(req, res) {
+        console.log("detail"  + req.params.id)
+        try {
+            result = await train.findById( req.params.id)
+            res.send(result)
+        } catch (error) {
+            res.status(500)
+            res.send(`{"error": document for id ${req.params.id} not found`);
+        }
     };

@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
 
-  form(id='trainForm', action="/resource/train", method="POST")
+  form(id='trainForm', class="container-fluid col-md-6" action="/resource/train", method="POST")
     div.form-group
         label.trainAttr(for='type') train type
         input#traintype(type='text', name='type')
@@ -13,7 +13,7 @@ block content
     div.form-group
         label.trainAttr(for='destination') train destination
         input#destination(type='text', name='destination')
-    input(type="submit")
+    input(type="submit" class="btn btn-info")
 
   script.
     document.forms['trainForm'].addEventListener('submit', (event) => {

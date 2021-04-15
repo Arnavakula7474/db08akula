@@ -1,6 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: lightseagreen;
+  
 }
 
 a {
@@ -8,6 +10,15 @@ a {
 }
 
 .trainAttr {
-  background-color: aquamarine;
+  background-color: lightcyan;
   width: 120px;
+  color: blue;
+}
+h1{
+  background-color: lightsalmon;
+  text-align: center;
+}
+.row{
+  background-color: lightgreen;
+  
 }

@@ -3,26 +3,29 @@ extends layout
 block content
   h1= title
 
-  - let trainid = toShow._id
-  - let type = toShow.type
-  - let compartments = toShow.compartments
-  - let destination = toShow.destination
+  if (toShow == null)
+    h2 No instance to update
+  else
+    - let trainid = toShow._id
+    - let type = toShow.type
+    - let compartments = toShow.compartments
+    - let destination = toShow.destination
   
-  div.row(class='mb-2')
-    div.mr-1 ID is
-    div #{trainid}
-  - let actionid = "/resource/train/" + trainid
-  form(id='trainForm', action= actionid, method="PUT")
-    div.form-group
-        label.trainAttr(for='type') train type
-        input#type(type='text', name='type', value= type )
-    div.form-group
-        label.trainAttr(for='destination') train destination
-        input#destination(type='text', name='destination', value= destination )
-    div.form-group
-        label.trainAttr(for='compartments') train compartments
-        input#compartments(type='number', name='compartments', value= compartments )
-    input(type="submit")
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{trainid}
+    - let actionid = "/resource/train/" + trainid
+    form(id='trainForm', action= actionid, method="PUT")
+      div.form-group
+          label.trainAttr(for='type') train type
+          input#type(type='text', name='type', value= type )
+      div.form-group
+          label.trainAttr(for='destination') train destination
+          input#destination(type='text', name='destination', value= destination )
+      div.form-group
+          label.trainAttr(for='compartments') train compartments
+          input#compartments(type='number', name='compartments', value= compartments )
+      input(type="submit")
 
   script.
     document.forms['trainForm'].addEventListener('submit', (event) => {

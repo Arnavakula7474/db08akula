@@ -1,22 +1,24 @@
 extends layout
 
 block content
-  h1= title
-
-  - let trainid = toShow._id
-  - let type = toShow.type
-  - let compartments = toShow.compartments
-  - let destination = toShow.destination
-  div
-    div.row
-      div(class='trainAttr mr-3') train ID is:
-      div #{trainid}
-    div.row
-      div(class='trainAttr mr-3') train Type is:
-      div #{type}
-    div.row
-      div(class='trainAttr mr-3') train compartments is:
-      div #{compartments}
-    div.row
-      div(class='trainAttr mr-3') train destination is:
-      div #{destination}
+  h1(class='title')= title
+  if (toShow == null)
+    h2 No instance to show the details
+  else
+    - let trainid = toShow._id
+    - let type = toShow.type
+    - let compartments = toShow.compartments
+    - let destination = toShow.destination
+    div
+      div.row
+        div(class='trainAttr mr-3') train ID is:
+        div #{trainid}
+      div.row
+        div(class='trainAttr mr-3') train Type is:
+        div #{type}
+      div.row
+        div(class='trainAttr mr-3') train compartments is:
+        div #{compartments}
+      div.row
+        div(class='trainAttr mr-3') train destination is:
+        div #{destination}

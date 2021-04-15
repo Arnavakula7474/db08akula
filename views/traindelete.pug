@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let trainid = toShow._id
+    - let type = toShow.type
+    - let compartments = toShow.compartments
+    - let destination = toShow.destination
+    - let actionid = "/resource/train/" + trainid
+    script let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='trainAttr mr-3') train ID is:
+        div #{trainid}
+      div.row
+        div(class='trainAttr mr-3') train Type is:
+        div #{type}
+      div.row
+        div(class='trainAttr mr-3') train destination is:
+        div #{destination}
+      div.row
+        div(class='trainAttr mr-3') train compartments is:
+        div #{compartments}
+
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+  script.
+    function cancel() {
+      // Go back to the home page for the train collection
+      window.location.href='/trains'
+    }
+  script.
+    function deleteOnid() {
+      console.log("starting delete")
+      // delete first
+      fetch(actionid, {
+        method: 'DELETE'      // Don't need a body for the delete
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/trains'
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Delete failed " + error )
+      });
+    }

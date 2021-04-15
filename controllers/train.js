@@ -20,7 +20,7 @@ exports.train_create_post = async function(req, res) {
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"costumetype":"goat", "cost":12, "size":"large"}
+    // {"traintype":"goat", "cost":12, "size":"large"}
     document.type = req.body.type;
     document.compartments = req.body.compartments;
     document.destination = req.body.destination;
@@ -98,6 +98,47 @@ exports.train_view_one_Page = async function(req, res) {
         result = await train.findById( req.query.id)
         res.render('traindetail', 
 { title: 'train Detail', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for creating a train.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.train_create_Page =  function(req, res) {
+    console.log("create view")
+    try{
+        res.render('traincreate', { title: 'train Create'});
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for updating a train.
+// query provides the id
+exports.train_update_Page =  async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+        let result = await train.findById(req.query.id)
+        res.render('trainupdate', { title: 'train Update', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle a delete one view with id from query
+exports.train_delete_Page = async function(req, res) {
+    console.log("Delete view for id "  + req.query.id)
+    try{
+        result = await train.findById(req.query.id)
+        res.render('traindelete', { title: 'train Delete', toShow: result });
     }
     catch(err){
         res.status(500)

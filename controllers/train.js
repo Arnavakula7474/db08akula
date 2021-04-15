@@ -33,12 +33,39 @@ exports.train_create_post = async function(req, res) {
    };
 };
 // Handle train delete form on DELETE.
-exports.train_delete = function(req, res) {
- res.send('NOT IMPLEMENTED: train delete DELETE ' + req.params.id);
+exports.train_delete = async function(req, res) {
+    console.log("delete "  + req.params.id)
+    try {
+        result = await train.findByIdAndDelete( req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
+
 };
 // Handle train update form on PUT.
-exports.train_update_put = function(req, res) {
- res.send('NOT IMPLEMENTED: train update PUT' + req.params.id);
+//exports.train_update_put = function(req, res) {
+ //res.send('NOT IMPLEMENTED: train update PUT' + req.params.id);
+//};
+
+// Handle Pen update form on PUT.
+exports.train_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
+    try {
+        let toUpdate = await train.findById( req.params.id)
+        // Do updates of properties
+        if(req.body.type) toUpdate.type = req.body.type;
+        if(req.body.compartments) toUpdate.compartments = req.body.compartments;
+        if(req.body.destination) toUpdate.destination = req.body.destination;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
+    }
 };
 
 // VIEWS
@@ -63,3 +90,17 @@ exports.train_view_all_Page = async function(req, res) {
             res.send(`{"error": document for id ${req.params.id} not found`);
         }
     };
+
+    // Handle a show one view with id specified by query
+exports.train_view_one_Page = async function(req, res) {
+    console.log("single view for id "  + req.query.id)
+    try{
+        result = await train.findById( req.query.id)
+        res.render('traindetail', 
+{ title: 'train Detail', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};

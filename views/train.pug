@@ -8,6 +8,10 @@ block content
             -
                 let trains = results
             each train in trains
-                div(class="col-sm-2") #{train.type}
-                div(class="col-sm-2") #{train.compartments}
-                div(class="col-sm-2") #{train.destination}
+                - let test = `dispatch(\"/trains/update?id=${train._id}\")`
+                div(class="row-sm-2" class='m-1') Train #{train.type}(#{train.compartments}) is #{train.destination}
+                    button(class="btn-primary ml-1", onclick=test) Update
+            script.
+                function dispatch(path){
+                    window.location.href = path
+                }

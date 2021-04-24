@@ -8,7 +8,7 @@ block content
             -
                 let trains = results
             each train in trains
-                - let test = `dispatch(\"/trains/update?id=${train._id}\")`
+                - let test = `dispatch(\"/train/update?id=${train._id}\")`
                 div(class="row-sm-2" class='m-1') Train #{train.type}(#{train.compartments}) is #{train.destination}
                     button(class="btn-primary ml-1", onclick=test) Update
             script.

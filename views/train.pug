@@ -6,11 +6,17 @@ block content
   div(class="container-fluid")
         div(class="row")
             -
-                let trains = results
-            each train in trains
-                - let test = `dispatch(\"/train/update?id=${train._id}\")`
-                div(class="row-sm-2" class='m-1') Train #{train.type}(#{train.compartments}) is #{train.destination}
-                    button(class="btn-primary ml-1", onclick=test) Update
+                let train = results
+            each v in train
+                - let destination = `dispatch(\"/train/update?id=${v._id}\")`
+                - let detail = `dispatch(\"/train/detail?id=${v._id}\")`
+                - let del = `dispatch(\"/train/delete?id=${v._id}\")`
+
+                div(class="row-sm-2" class='m-1') Train #{v.type}(#{v.compartments}) is #{v.destination}
+                    button.btn(class="btn-success ml-1", onclick=detail) Detail
+                    button.btn(class="btn-primary ml-1", onclick=destination) Update
+                    button.btn(class="btn-danger ml-1", onclick=del) Delete
+                
             script.
                 function dispatch(path){
                     window.location.href = path

@@ -20,13 +20,13 @@ router.get('/', train_controlers.train_view_all_Page);
 router.get('/detail', train_controlers.train_view_one_Page);
 
 /* GET create train page */
-router.get('/create', train_controlers.train_create_Page);
+router.get('/create', secured, train_controlers.train_create_Page);
 
 /* GET create update page */
 router.get('/update', secured, train_controlers.train_update_Page);
 
 /* GET create train page */
-router.get('/delete', train_controlers.train_delete_Page);
+router.get('/delete', secured, train_controlers.train_delete_Page);
 
 
 module.exports = router;
